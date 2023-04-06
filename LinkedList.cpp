@@ -7,13 +7,15 @@
 #include <iostream>
 using namespace std;
 
-LinkedList::LinkedList() : _head(nullptr) {}
+LinkedList::LinkedList() {
+    Node* tmp = new Node(0);
+    _head = tmp;
+}
 LinkedList::LinkedList(LinkedList* list) : _head(list->_head) {}
 
 LinkedList::LinkedList(Node* node) : _head(node) {}
 LinkedList::LinkedList(int val)  {
     Node* tmp = new Node(val);
-    _head = tmp;
 }
 bool LinkedList::RollAdd(int val) {
     Node* tmp = new Node(val);
@@ -53,7 +55,6 @@ LinkedList * LinkedList::Clone() {
     return new LinkedList(this);
 }
 bool LinkedList::Delete(int key) {
-    _cacheDel.push_back(key);
     Node* tmpHead = _head;
 
     while (tmpHead->_next->_val != key) {
@@ -63,6 +64,7 @@ bool LinkedList::Delete(int key) {
         tmpHead = tmpHead->_next;
     }
 
+    _cacheDel.push_back(key);
     Node* tmp = tmpHead->_next;
     tmpHead->_next = tmpHead->_next->_next;
     delete tmp;
